@@ -5,7 +5,7 @@ import { CreateUserDto, UserResponseDto } from './dto/user.dto';
 import { hash } from 'bcrypt';
 
 @Injectable()
-export class UsersService {
+export class UserService {
     constructor(private readonly prisma: PrismaService) {}
 
     async user(
