@@ -28,4 +28,3 @@ export class UserResponseDto {
         Object.assign(this, partial);
     }
 }
-
