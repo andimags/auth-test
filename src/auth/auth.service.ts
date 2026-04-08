@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { compare } from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
 import { UserService } from 'src/user/user.service';
-import { LoginDto } from './dto/auth.dto';
+import { LoginDto, VerifyTokenDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -54,6 +54,27 @@ export class AuthService {
                         secret: process.env.JWT_REFRESH_KEY
                     })
                 }
+            }
+        }
+
+        async verifyToken(dto: VerifyTokenDto) {
+            try {
+                await this.jwtService.verifyAsync(dto.token, {
+                    secret:
+                        dto.type === 'access'
+                            ? process.env.JWT_ACCESS_KEY
+                            : process.env.JWT_REFRESH_KEY,
+                });
+        
+                return {
+                    isValid: true,
+                };
+            } catch (err) {
+                console.error('Token verification failed:', err.message);
+
+                return {
+                    isValid: false,
+                };
             }
         }
 }

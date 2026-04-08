@@ -11,3 +11,13 @@ export class LoginDto{
     @IsString()
     password: string;
 }
+
+export class VerifyTokenDto{
+    @ApiProperty()
+    @IsString()
+    token: string;
+
+    @ApiProperty()
+    @IsString()
+    type: 'access' | 'refresh';
+}
