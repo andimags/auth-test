@@ -31,7 +31,8 @@ export class AuthService {
                         refreshToken: await this.jwtService.signAsync(result, {
                             expiresIn: '7d',
                             secret: process.env.JWT_REFRESH_KEY
-                        })
+                        }),
+                        accessTokenExpires: new Date(Date.now() + 20000)
                     }
                 }
             }
@@ -52,7 +53,8 @@ export class AuthService {
                     refreshToken: await this.jwtService.signAsync(payload, {
                         expiresIn: '7d',
                         secret: process.env.JWT_REFRESH_KEY
-                    })
+                    }),
+                    accessTokenExpires: new Date(Date.now() + 20000)
                 }
             }
         }
